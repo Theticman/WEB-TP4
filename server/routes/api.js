@@ -57,20 +57,18 @@ router.post('/panier', (req, res) => {
     return
   }
   // L'article spcéifié est déjà dans le panier
-  req.session.panier.articles.forEach(element => {
-    if (element.id == id) {
-      res.status(400).json({ message: 'bad request'})
-      return
-    }
-  })
-
-  const article = {
+  const article = req.session.panier.articles.find(a => a.id === id)
+  if (article) {
+    res.status(400).json({ message: 'bad request (already in basket)'})
+    return
+  }
+  const newArticle = {
     id: id,
     quantity: quantity
   }
-  req.session.panier.articles.push(article)
+  req.session.panier.articles.push(newArticle)
   // on envoie l'article ajouté à l'utilisateur
-  res.json(article)
+  res.json(newArticle)
 })
 
 /*

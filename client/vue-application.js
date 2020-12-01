@@ -50,7 +50,6 @@ var app = new Vue({
         id: articleId,
         quantity: 1
       }
-      console.log(post)
       await axios.post('/api/panier', body)
     }
   }
