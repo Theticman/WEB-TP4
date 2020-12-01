@@ -11,7 +11,8 @@
           <div>
           <button @click="deleteArticle(article.id)">Supprimer</button>
           <button @click="editArticle(article)">Modifier</button>
-          <button @click="addToPanier(article.id)">Ajouter au panier</button>
+          <button @click="addToPanier(article.id)" v-show="inPanier(article.id)">Ajouter au panier</button>
+          <button @click="removeFromPanier(article.id)" v-show="!inPanier(article.id)">Retirer du panier</button>
           </div>
         </div>
         <p>{{ article.description }}</p>
@@ -73,6 +74,9 @@ module.exports = {
     addToPanier (articleId) {
       this.$emit('add-to-panier', articleId)
     },
+    removeFromPanier (articleId) {
+      this.$emit('remove-from-panier', articleId)
+    },
     sendEditArticle () {
       this.$emit('update-article', this.editingArticle)
       this.abortEditArticle()
@@ -85,6 +89,16 @@ module.exports = {
         image: '',
         price: 0
       }
+    },
+    // Tentative de fonction permettant de déterminer si un article est déja présent dans le panier
+    // Ne fonctionne pas car nous n'arrivons pas a récupérer le panier .........
+    inPanier (id) {
+      const article = this.panier.articles.find(a => a.id === id)
+      console.log(article)
+      if (article) {
+        return false
+      }
+      return true
     }
   }
 }

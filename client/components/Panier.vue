@@ -2,6 +2,9 @@
   <div>
     <h2>Mon Panier</h2>
     <!-- TODO -->
+    <article v-for="article in panier.articles" :key="article.id">
+      <div>Wesh la street</div>
+    </article>
   </div>
 </template>
 

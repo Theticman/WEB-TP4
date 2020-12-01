@@ -24,8 +24,8 @@ var app = new Vue({
   async mounted () {
     const res = await axios.get('/api/articles')
     this.articles = res.data
-    // const res2 = await axios.get('/api/panier')
-    // this.panier = res2.data
+    const res2 = await axios.get('/api/panier')
+    this.panier = res2.data
   },
   methods: {
     async addArticle (article) {
@@ -50,7 +50,13 @@ var app = new Vue({
         id: articleId,
         quantity: 1
       }
-      await axios.post('/api/panier', body)
+      const res = await axios.post('/api/panier', body)
+      this.panier.articles.push(res.data)
+    },
+    async removeFromPanier (articleId) {
+      await axios.delete('/api/panier/' + articleId)
+      const index = this.panier.articles.findIndex(a => a.id === articleId)
+      this.panier.articles.splice(index, 1)
     }
   }
 })
