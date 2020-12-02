@@ -57,6 +57,14 @@ var app = new Vue({
       await axios.delete('/api/panier/' + articleId)
       const index = this.panier.articles.findIndex(a => a.id === articleId)
       this.panier.articles.splice(index, 1)
+    },
+    async editQuantity (article) {
+      const body = {
+        quantity: article.quantity
+      }
+      await axios.put('/api/panier/' + article.id, body)
+      const index = this.panier.articles.findIndex(a => a.id === article.id)
+      this.panier.articles[index].quantity = article.quantity
     }
   }
 })

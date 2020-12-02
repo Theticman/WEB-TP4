@@ -10,8 +10,13 @@
       <div class="article-content">
       <div class="article-title">
           <h2>{{ articles[article.id-1].name }} - {{ articles[article.id-1].price }}€ - Quantité : {{article.quantity}}</h2>
-          <div>
-            <button>Retirer du panier</button>
+          <div v-if="articleEditQuantityId !== article.id">
+            <button @click="startEditQuantity(article.id)">Modifier la quantité</button>
+          </div>
+          <div v-if="articleEditQuantityId == article.id">
+            <input v-model="newQuantity" placeholder="Nouvelle quantité">
+            <button @click="editQuantity(article.id)">Valider</button>
+            <button @click="abortEditQuantity()">Annuler</button>
           </div>
       </div>
       <p>{{ articles[article.id-1].description }}</p>
@@ -28,11 +33,28 @@ module.exports = {
   },
   data () {
     return {
+      newQuantity: null,
+      articleEditQuantityId: -1
     }
   },
   async mounted () {
   },
   methods: {
+    startEditQuantity (articleId) {
+      this.articleEditQuantityId = articleId
+    },
+    editQuantity (articleId) {
+      article = {
+        id: articleId,
+        quantity: this.newQuantity
+      }
+      this.$emit('edit-quantity', article)
+      this.abortEditQuantity()
+    },
+    abortEditQuantity () {
+      this.newQuantity = null
+      this.articleEditQuantityId = -1
+    }
   }
 }
 </script>

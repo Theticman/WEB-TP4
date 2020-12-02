@@ -54,7 +54,7 @@ module.exports = {
         image: '',
         price: 0
       },
-      showForm: false
+      showForm: false,
     }
   },
   methods: {
@@ -94,7 +94,6 @@ module.exports = {
     // Ne fonctionne pas car nous n'arrivons pas a récupérer le panier .........
     inPanier (id) {
       const article = this.panier.articles.find(a => a.id === id)
-      console.log(article)
       if (article) {
         return false
       }

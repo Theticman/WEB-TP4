@@ -95,6 +95,11 @@ router.put('/panier/:articleId', (req, res) => {
   const quantity = parseInt(req.body.quantity)
 
   // vérification de la validité des données d'entrée
+  // Pas de quantité spécifié
+  if (isNaN(quantity)) {
+    res.status(400).json({ message: 'Quantity is not specified'})
+    return
+  }
   // La quantité demandé n'est pas entière strictement positive
   if (quantity <= 0) {
     res.status(400).json({ message: 'Quantity is not a positive integer'})
