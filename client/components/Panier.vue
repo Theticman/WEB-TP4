@@ -62,6 +62,21 @@ module.exports = {
 <style scoped>
 article {
   display: flex;
+  background-color: lightgray;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+button {
+  background-color: rgb(231, 231, 231);
+  transition: .4s;
+}
+
+button:hover {
+  background-color: darkgray;
+  transition: .4s;
 }
 
 .article-img {
