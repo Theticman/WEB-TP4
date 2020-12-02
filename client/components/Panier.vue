@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>Mon Panier</h2>
-    <!-- TODO -->
     <article v-for="article in panier.articles" :key="article.id">
       <div class="article-img">
         <div :style="{ backgroundImage: 'url(' + articles[article.id-1].image + ')' }">
